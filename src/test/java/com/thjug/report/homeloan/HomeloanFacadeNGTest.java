@@ -22,13 +22,11 @@ public class HomeloanFacadeNGTest {
 	final List<InterestRate> failList = new LinkedList<>();
 
 	public HomeloanFacadeNGTest() {
-		rateList.add(new InterestRate("1 - 6", new BigDecimal("0")));
-		rateList.add(new InterestRate("7 - 12", new BigDecimal("4.0")));
-		rateList.add(new InterestRate("13 - 36", new BigDecimal("6.82")));
-		rateList.add(new InterestRate("37", new BigDecimal("6.42")));
+		rateList.add(new InterestRate("1 - 12", new BigDecimal("1.25")));
+		rateList.add(new InterestRate("13", new BigDecimal("5.25")));
 
 		failList.add(new InterestRate("1 - 12", new BigDecimal("1.25")));
-		failList.add(new InterestRate("13 - 26", new BigDecimal("5.25")));
+		failList.add(new InterestRate("13 - 24", new BigDecimal("5.25")));
 	}
 
 	@Test
@@ -80,7 +78,7 @@ public class HomeloanFacadeNGTest {
 		final int count = 12;
 
 		final BigDecimal expResult = new BigDecimal("1.25");
-		final BigDecimal result = instance.getRate(count, failList);
+		final BigDecimal result = instance.getRate(count, rateList);
 		assertEquals(result, expResult);
 	}
 
@@ -89,7 +87,7 @@ public class HomeloanFacadeNGTest {
 		final int count = 56;
 
 		final BigDecimal expResult = new BigDecimal("5.25");
-		final BigDecimal result = instance.getRate(count, failList);
+		final BigDecimal result = instance.getRate(count, rateList);
 		assertEquals(result, expResult);
 	}
 

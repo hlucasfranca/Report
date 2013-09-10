@@ -74,9 +74,9 @@ public final class HomeloanFacade {
 
 			calendar.add(Calendar.MONTH, 1);
 
-			LOG.info("#{} {}{}	{}	{}	{}",
+			LOG.info("#{} {}{}	{}	{}	{}	{}",
 						loan.getCount(), loan.getYear(), monthFormat.format(loan.getMonth()),
-						loan.getTotalbeforepaid(), loan.getInterest(), loan.getTotalafterpaid());
+						loan.getTotalbeforepaid(), loan.getInterest(), loan.getPaid(), loan.getTotalafterpaid());
 		} while(summary.doubleValue() > 0);
 
 		final BigDecimal totally = paid.multiply(new BigDecimal(result.size()));
