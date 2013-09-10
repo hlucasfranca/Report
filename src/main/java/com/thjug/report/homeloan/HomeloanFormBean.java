@@ -29,9 +29,9 @@ import org.slf4j.LoggerFactory;
  */
 @ManagedBean
 @RequestScoped
-public final class HomeloanManaged implements Serializable {
+public final class HomeloanFormBean implements Serializable {
 
-	private static final Logger LOG = LoggerFactory.getLogger(HomeloanManaged.class);
+	private static final Logger LOG = LoggerFactory.getLogger(HomeloanFormBean.class);
 
 	private Date startdate;
 	private BigDecimal total;
