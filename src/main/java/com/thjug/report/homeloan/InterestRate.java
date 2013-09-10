@@ -23,28 +23,22 @@ public final class InterestRate {
     private String month;
     private BigDecimal rate;
 
+	/**
+	 *
+	 * @param month Input in range format. Ex 1-36 means Rate for month 1 - month 6
+	 * @param rate  Interest Rate Percent. Ex 5.25%
+	 */
+	public InterestRate(final String month, final BigDecimal rate) {
+		this.month = month;
+		this.rate = rate;
+	}
+
 	public String getMonth() {
 		return month;
 	}
 
-	/**
-	 * Input in range format. Ex 1-36 means Rate for month 1 - month 6
-	 * @param month
-	 */
-	public void setMonth(final String month) {
-		this.month = month;
-	}
-
 	public BigDecimal getRate() {
 		return rate;
-	}
-
-	/**
-	 * Interest Rate Percent. Ex 5.25%
-	 * @param rate
-	 */
-	public void setRate(final BigDecimal rate) {
-		this.rate = rate;
 	}
 
 }

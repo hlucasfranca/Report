@@ -22,35 +22,13 @@ public class HomeloanFacadeNGTest {
 	final List<InterestRate> failList = new LinkedList<>();
 
 	public HomeloanFacadeNGTest() {
-		final InterestRate rate1 = new InterestRate();
-		rate1.setMonth("1 - 6");
-		rate1.setRate(new BigDecimal("0"));
-		rateList.add(rate1);
+		rateList.add(new InterestRate("1 - 6", new BigDecimal("0")));
+		rateList.add(new InterestRate("7 - 12", new BigDecimal("4.0")));
+		rateList.add(new InterestRate("13 - 36", new BigDecimal("6.82")));
+		rateList.add(new InterestRate("37", new BigDecimal("6.42")));
 
-		final InterestRate rate2 = new InterestRate();
-		rate2.setMonth("7 - 12");
-		rate2.setRate(new BigDecimal("4.0"));
-		rateList.add(rate2);
-
-		final InterestRate rate3 = new InterestRate();
-		rate3.setMonth("13-36");
-		rate3.setRate(new BigDecimal("6.82"));
-		rateList.add(rate3);
-
-		final InterestRate rate4 = new InterestRate();
-		rate4.setMonth("37");
-		rate4.setRate(new BigDecimal("6.42"));
-		rateList.add(rate4);
-
-		final InterestRate failrate1 = new InterestRate();
-		failrate1.setMonth("1 - 12");
-		failrate1.setRate(new BigDecimal("1.25"));
-		failList.add(failrate1);
-
-		final InterestRate failrate2 = new InterestRate();
-		failrate2.setMonth("13 - 26");
-		failrate2.setRate(new BigDecimal("5.25"));
-		failList.add(failrate2);
+		failList.add(new InterestRate("1 - 12", new BigDecimal("1.25")));
+		failList.add(new InterestRate("13 - 26", new BigDecimal("5.25")));
 	}
 
 	@Test

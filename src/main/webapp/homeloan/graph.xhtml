@@ -7,10 +7,8 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-		Hello from Facelets
 		<br />
-		<p:lineChart id="loangraph" value="#{chartBean.linearModel}" legendPosition="e"
-					 title="SCNB" minY="1" maxY="250" style="height:300px"/>
+		<p:lineChart id="loangraph" value="#{homeloan.homeloanModel}" legendPosition="e" zoom="true" widgetVar="chart"
+					 title="จ่ายคงที่เดือนละ : #{homeloan.paid} บาท" minX="1" maxX="#{homeloan.paidmonth}" minY="1" maxY="#{homeloan.total}" style="height:840px;"/>
 	</h:body>
 </html>
-
