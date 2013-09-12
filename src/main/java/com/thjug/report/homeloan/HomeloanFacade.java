@@ -50,8 +50,7 @@ public final class HomeloanFacade {
 
 			if (interest.doubleValue() >= paid.doubleValue()) {
 				throw new IllegalArgumentException(
-						 "You paid less than your interest. \n"
-						+"Please increse your amout.");
+						 "You paid less than your interest. \n Please increse your amout.");
 			}
 
 			summary = summary.add(interest);
@@ -74,13 +73,13 @@ public final class HomeloanFacade {
 
 			calendar.add(Calendar.MONTH, 1);
 
-			LOG.info("#{} {}{}	{}	{}	{}	{}",
+			LOG.debug("#{} {}{}	{}	{}	{}	{}",
 						loan.getCount(), loan.getYear(), monthFormat.format(loan.getMonth()),
 						loan.getTotalbeforepaid(), loan.getInterest(), loan.getPaid(), loan.getTotalafterpaid());
 		} while(summary.doubleValue() > 0);
 
 		final BigDecimal totally = paid.multiply(new BigDecimal(result.size()));
-		LOG.info("Totally paid {} monty amount {} baht", result.size(), totally);
+		LOG.info("Totally paid {} months {} baht", result.size(), totally);
 
 		return result;
 	}

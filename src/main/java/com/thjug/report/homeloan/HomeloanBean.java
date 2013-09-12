@@ -12,14 +12,13 @@
  */
 package com.thjug.report.homeloan;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.LineChartSeries;
@@ -30,9 +29,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author @nuboat
  */
-@RequestScoped
+@ViewScoped
 @ManagedBean(name = "homeloan")
-public final class HomeloanBean implements Serializable {
+public final class HomeloanBean extends AbstractBean {
 
 	private static final Logger LOG = LoggerFactory.getLogger(HomeloanBean.class);
 
@@ -40,16 +39,23 @@ public final class HomeloanBean implements Serializable {
 	private BigDecimal total;
 	private BigDecimal paid;
 	private int paidmonth = 0;
+	private boolean show;
 
-	private CartesianChartModel homeloanModel = new CartesianChartModel();
+	private CartesianChartModel homeloanModel;
 	
 	private static final HomeloanFacade facade = new HomeloanFacade();
 
 	public HomeloanBean() {
-		startdate = new Date();
-		total = new BigDecimal("2400000");
-		paid = new BigDecimal("16000");
+		show = false;
+		homeloanModel = new CartesianChartModel();
+	}
 
+	public void recalculate() {
+		show = false;
+		homeloanModel = new CartesianChartModel();
+	}
+
+	public String getDefaultSCNB() {
 		final List<InterestRate> scnbList = new LinkedList<>();
 		scnbList.add(new InterestRate("1 - 6", new BigDecimal("0")));
 		scnbList.add(new InterestRate("7 - 12", new BigDecimal("4")));
@@ -75,7 +81,7 @@ public final class HomeloanBean implements Serializable {
 		scnbList.add(new InterestRate("187 - 192", new BigDecimal("4")));
 		scnbList.add(new InterestRate("193", new BigDecimal("6.82")));
 
-		final List<Homeloan> resultScnbList = calcurate(startdate, total, paid, scnbList);
+		final List<Homeloan> resultScnbList = calcurate(scnbList);
 		if (resultScnbList != null) {
 			final double totally = paid.multiply(new BigDecimal(resultScnbList.size()-1))
 					.add(resultScnbList.get(resultScnbList.size()-1).getPaid()).doubleValue();
@@ -88,31 +94,35 @@ public final class HomeloanBean implements Serializable {
 			paidmonth = (resultScnbList.size() > paidmonth) ? resultScnbList.size() : paidmonth;
 		}
 
+		return "";
+	}
+
+	public String getDefaultOomsin() {
 		final List<InterestRate>  oomsinList = new LinkedList<>();
 		oomsinList.add(new InterestRate("1 - 12", new BigDecimal("1.25")));
-		oomsinList.add(new InterestRate("12 - 24", new BigDecimal("4")));
+		oomsinList.add(new InterestRate("12 - 24", new BigDecimal("5")));
 		oomsinList.add(new InterestRate("25 - 36", new BigDecimal("6.5")));
 
 		oomsinList.add(new InterestRate("37 - 48", new BigDecimal("1.25")));
-		oomsinList.add(new InterestRate("49 - 60", new BigDecimal("4")));
+		oomsinList.add(new InterestRate("49 - 60", new BigDecimal("5")));
 		oomsinList.add(new InterestRate("61 - 72", new BigDecimal("6.5")));
 
 		oomsinList.add(new InterestRate("73 - 84", new BigDecimal("1.25")));
-		oomsinList.add(new InterestRate("85 - 96", new BigDecimal("4")));
+		oomsinList.add(new InterestRate("85 - 96", new BigDecimal("5")));
 		oomsinList.add(new InterestRate("97 - 108", new BigDecimal("6.5")));
 
 		oomsinList.add(new InterestRate("109 - 120", new BigDecimal("1.25")));
-		oomsinList.add(new InterestRate("121 - 132", new BigDecimal("4")));
+		oomsinList.add(new InterestRate("121 - 132", new BigDecimal("5")));
 		oomsinList.add(new InterestRate("133 - 144", new BigDecimal("6.5")));
 
 		oomsinList.add(new InterestRate("145 - 156", new BigDecimal("1.25")));
-		oomsinList.add(new InterestRate("157 - 168", new BigDecimal("4")));
+		oomsinList.add(new InterestRate("157 - 168", new BigDecimal("5")));
 		oomsinList.add(new InterestRate("169 - 180", new BigDecimal("6.5")));
 
 		oomsinList.add(new InterestRate("181 - 192", new BigDecimal("1.25")));
-		oomsinList.add(new InterestRate("193 - 204", new BigDecimal("4")));
+		oomsinList.add(new InterestRate("193 - 204", new BigDecimal("5")));
 		oomsinList.add(new InterestRate("205 - 216", new BigDecimal("6.5")));
-		final List<Homeloan> resultOomsinList = calcurate(startdate, total, paid, oomsinList);
+		final List<Homeloan> resultOomsinList = calcurate(oomsinList);
 		if (resultOomsinList != null) {
 			final double totally = paid.multiply(new BigDecimal(resultOomsinList.size()-1))
 					.add(resultOomsinList.get(resultOomsinList.size()-1).getPaid()).doubleValue();
@@ -124,19 +134,19 @@ public final class HomeloanBean implements Serializable {
 			homeloanModel.addSeries(amountLine);
 			paidmonth = (resultOomsinList.size() > paidmonth) ? resultOomsinList.size() : paidmonth;
 		}
+
+		return "";
 	}
 
-	public List<Homeloan> calcurate(final Date startdate, final BigDecimal total, final BigDecimal paid,
-			final List<InterestRate> rateList) {
+	public List<Homeloan> calcurate(final List<InterestRate> rateList) {
 		try {
-			return facade.calc(startdate, total, paid, rateList);
+			final List<Homeloan> result =  facade.calc(startdate, total, paid, rateList);
+			show = true;
+			return result;
 		} catch(final IllegalArgumentException e) {
-			LOG.error(e.getMessage(), e);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,  "Cannot Calcurate", e.getMessage()));
-			return null;
-		} catch(final Exception e) {
-			LOG.error(e.getMessage(), e);
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Server Internal Error", e.getMessage()));
+			LOG.info(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN,  "Cannot Calcurate", e.getMessage()));
 			return null;
 		}
 
@@ -150,17 +160,32 @@ public final class HomeloanBean implements Serializable {
 		return startdate;
 	}
 
+	public void setStartdate(final Date startdate) {
+		this.startdate = startdate;
+	}
+
 	public BigDecimal getTotal() {
 		return total;
+	}
+
+	public void setTotal(final BigDecimal total) {
+		this.total = total;
 	}
 
 	public BigDecimal getPaid() {
 		return paid;
 	}
 
+	public void setPaid(final BigDecimal paid) {
+		this.paid = paid;
+	}
+
 	public int getPaidmonth() {
 		return paidmonth;
 	}
 
-	
+	public boolean isShow() {
+		return show;
+	}
+
 }
