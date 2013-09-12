@@ -4,11 +4,14 @@
  */
 package com.thjug.report.homeloan;
 
+import com.thjug.mock.ContextMocker;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import javax.faces.context.FacesContext;
 
+import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.primefaces.model.chart.CartesianChartModel;
 
 import static org.testng.Assert.*;
@@ -19,6 +22,8 @@ import org.testng.annotations.Test;
  * @author PeerapatAsoktummarun
  */
 public class HomeloanBeanNGTest {
+
+	private MockFacesEnvironment environment;
 
 	@Test
 	public void testGetter() {
@@ -88,19 +93,21 @@ public class HomeloanBeanNGTest {
 		assertEquals(show, false);
 	}
 
-	//@Test
+	@Test
 	public void testCalculateError() {
+		FacesContext context = ContextMocker.mockFacesContext();
+		
 		final HomeloanBean instance = new HomeloanBean();
 		instance.setStartdate(new Date());
 		instance.setTotal(new BigDecimal("2400000"));
 		instance.setPaid(new BigDecimal("6000"));
 
 		final List<InterestRate> oomsinList = new LinkedList<>();
-		oomsinList.add(new InterestRate("1 - 12", new BigDecimal("1.25")));
-		oomsinList.add(new InterestRate("12 - 24", new BigDecimal("5")));
-		oomsinList.add(new InterestRate("25 - 36", new BigDecimal("6.5")));
+		oomsinList.add(new InterestRate("1", new BigDecimal("5")));
 
 		instance.calcurate(oomsinList);
+
+		context.release();
 	}
 
 }

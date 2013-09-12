@@ -8,16 +8,17 @@
     </h:head>
     <h:body>
 		<h:form id="form">
-			<p:panel rendered="false">
+			<p:messages id="messages" />
+			<p:panel rendered="#{!homeloan.show}">
 				<p:inputText id="rate" />
 			</p:panel>
-		</h:form>
-		<br />
-		<p:lineChart id="loangraph" value="#{homeloan.homeloanModel}" legendPosition="e" zoom="true" widgetVar="chart"
-					 style="height:960px; width: 100%" rendered="true"
-					 title="จ่ายคงที่เดือนละ : #{homeloan.paid} บาท" animate="true"
-					 minX="1" maxX="#{homeloan.paidmonth}" minY="1" maxY="#{homeloan.total}" />
+			<br />
+			<p:lineChart id="loangraph" value="#{homeloan.homeloanModel}" rendered="#{homeloan.show}"
+						 style="height:960px; width: 100%" zoom="true" widgetVar="chart" animate="true"
+						 title="จ่ายคงที่เดือนละ : #{homeloan.paid} บาท" 
+						 minX="1" maxX="#{homeloan.paidmonth}" minY="1" maxY="#{homeloan.total}" />
 
+		</h:form>
 		<hr />
 		คำนวนสินเชื่อบ้านและที่อยู่อาศัย คำนวณหาอัตราผ่อนชำระต่อเดือน และรายได้ขั้นต่ำ คำนวนหาวงเงิน ที่สามารถกู้ได้ หาระยะเวลากู้และวงเงินกู้
 	</h:body>

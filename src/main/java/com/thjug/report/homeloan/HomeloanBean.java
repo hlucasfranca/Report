@@ -20,6 +20,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 import org.slf4j.Logger;
@@ -141,12 +142,13 @@ public final class HomeloanBean extends AbstractBean {
 	public List<Homeloan> calcurate(final List<InterestRate> rateList) {
 		try {
 			final List<Homeloan> result =  facade.calc(startdate, total, paid, rateList);
+			
 			show = true;
 			return result;
 		} catch(final IllegalArgumentException e) {
+			show = false;
 			LOG.info(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,  "Cannot Calcurate", e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN,  "Cannot Calcurate", e.getMessage()));
 			return null;
 		}
 
