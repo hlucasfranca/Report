@@ -17,10 +17,6 @@
 
 	<repositories>
 		<repository>
-			<id>Java.Net</id>
-			<url>http://download.java.net/maven/2/</url>
-		</repository>
-		<repository>
 			<id>PrimeFaces-maven-lib</id>
 			<url>http://repository.primefaces.org/</url>
 			<layout>default</layout>
@@ -46,8 +42,13 @@
 			<version>6.0-5</version>
 		</dependency>
 		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.faces</artifactId>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
 			<version>2.2.2</version>
 		</dependency>
 		<dependency>
@@ -89,14 +90,8 @@
 		<!-- Testing -->
 		<dependency>
 			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
+			<artifactId>mockito-core</artifactId>
 			<version>1.9.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.test-jsf</groupId>
-			<artifactId>jsf-mock</artifactId>
-			<version>1.1.6</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

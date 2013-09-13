@@ -12,22 +12,22 @@
  */
 package com.thjug.report.homeloan;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
+ * month Input in range format. Ex 1-36 means Rate for month 1 - month 6
+ * rate  Interest Rate Percent. Ex 5.25%
  *
  * @author @nuboat
  */
-public final class InterestRate {
+public final class InterestRate implements Serializable {
 
     private String month;
     private BigDecimal rate;
 
-	/**
-	 *
-	 * @param month Input in range format. Ex 1-36 means Rate for month 1 - month 6
-	 * @param rate  Interest Rate Percent. Ex 5.25%
-	 */
+	public InterestRate() {}
+
 	public InterestRate(final String month, final BigDecimal rate) {
 		this.month = month;
 		this.rate = rate;

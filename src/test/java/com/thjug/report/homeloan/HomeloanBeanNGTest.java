@@ -1,6 +1,14 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Attribution
+ * CC BY
+ * This license lets others distribute, remix, tweak,
+ * and build upon your work, even commercially,
+ * as long as they credit you for the original creation.
+ * This is the most accommodating of licenses offered.
+ * Recommended for maximum dissemination and use of licensed materials.
+ *
+ * http://creativecommons.org/licenses/by/3.0/
+ * http://creativecommons.org/licenses/by/3.0/legalcode
  */
 package com.thjug.report.homeloan;
 
@@ -11,7 +19,6 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.faces.context.FacesContext;
 
-import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.primefaces.model.chart.CartesianChartModel;
 
 import static org.testng.Assert.*;
@@ -19,11 +26,9 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author PeerapatAsoktummarun
+ * @author @nuboat
  */
 public class HomeloanBeanNGTest {
-
-	private MockFacesEnvironment environment;
 
 	@Test
 	public void testGetter() {
@@ -52,30 +57,14 @@ public class HomeloanBeanNGTest {
 	}
 
 	@Test
-	public void testGetDefaultSCNB() {
+	public void testGenReport() {
 		final HomeloanBean instance = new HomeloanBean();
 		instance.setStartdate(new Date());
 		instance.setTotal(new BigDecimal("2400000"));
 		instance.setPaid(new BigDecimal("16000"));
-		instance.getDefaultSCNB();
+		instance.genOomsinPlan1();
 
-		final CartesianChartModel model = instance.getHomeloanModel();
-		assertEquals(model.getSeries().isEmpty(), false);
-
-		final boolean show = instance.isShow();
-		assertEquals(show, true);
-	}
-
-	@Test
-	public void testGetDefaultOomsin() {
-		final HomeloanBean instance = new HomeloanBean();
-		instance.setStartdate(new Date());
-		instance.setTotal(new BigDecimal("2400000"));
-		instance.setPaid(new BigDecimal("16000"));
-		instance.getDefaultOomsin();
-
-		final CartesianChartModel model = instance.getHomeloanModel();
-		assertEquals(model.getSeries().isEmpty(), false);
+		instance.genReport();
 
 		final boolean show = instance.isShow();
 		assertEquals(show, true);
@@ -102,10 +91,10 @@ public class HomeloanBeanNGTest {
 		instance.setTotal(new BigDecimal("2400000"));
 		instance.setPaid(new BigDecimal("6000"));
 
-		final List<InterestRate> oomsinList = new LinkedList<>();
-		oomsinList.add(new InterestRate("1", new BigDecimal("5")));
+		final List<InterestRate> failList = new LinkedList<>();
+		failList.add(new InterestRate("1", new BigDecimal("5")));
 
-		instance.calcurate(oomsinList);
+		instance.calculate("Test", failList);
 
 		context.release();
 	}

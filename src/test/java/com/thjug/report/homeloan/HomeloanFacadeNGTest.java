@@ -1,6 +1,14 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Attribution
+ * CC BY
+ * This license lets others distribute, remix, tweak,
+ * and build upon your work, even commercially,
+ * as long as they credit you for the original creation.
+ * This is the most accommodating of licenses offered.
+ * Recommended for maximum dissemination and use of licensed materials.
+ *
+ * http://creativecommons.org/licenses/by/3.0/
+ * http://creativecommons.org/licenses/by/3.0/legalcode
  */
 package com.thjug.report.homeloan;
 
@@ -13,7 +21,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author nuboat
+ * @author @nuboat
  */
 public class HomeloanFacadeNGTest {
 
@@ -50,7 +58,7 @@ public class HomeloanFacadeNGTest {
 	}
 
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testCalcCasePaidRateFail() {
+	public void testCalcCaseRateFail() {
 		final Date startdate = new Date();
 		final BigDecimal total = new BigDecimal("2400000");
 		final BigDecimal paid = new BigDecimal("16000");
@@ -92,7 +100,7 @@ public class HomeloanFacadeNGTest {
 	}
 
 	@Test
-	public void testInLengthCaseTrue() {
+	public void testInLengthCaseSuccess() {
 		final int count = 12;
 		final String month = "1 - 13";
 
@@ -102,9 +110,19 @@ public class HomeloanFacadeNGTest {
 	}
 
 	@Test
-	public void testInLengthCaseFasle() {
-		final int count = 16;
-		final String month = "1 - 13";
+	public void testInLengthCaseBelow() {
+		final int count = 6;
+		final String month = "13 - 24";
+
+		final boolean expResult = false;
+		final boolean result = instance.inLength(count, month);
+		assertEquals(result, expResult);
+	}
+
+	@Test
+	public void testInLengthCaseUpper() {
+		final int count = 26;
+		final String month = "13 - 24";
 
 		final boolean expResult = false;
 		final boolean result = instance.inLength(count, month);

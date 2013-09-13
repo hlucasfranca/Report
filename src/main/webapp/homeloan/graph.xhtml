@@ -2,22 +2,44 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	<ui:remove>
+		/*
+		 * Attribution
+		 * CC BY
+		 * This license lets others distribute, remix, tweak,
+		 * and build upon your work, even commercially,
+		 * as long as they credit you for the original creation.
+		 * This is the most accommodating of licenses offered.
+		 * Recommended for maximum dissemination and use of licensed materials.
+		 *
+		 * http://creativecommons.org/licenses/by/3.0/
+		 * http://creativecommons.org/licenses/by/3.0/legalcode
+		 *
+		 * @author @nuboat
+		 */
+	</ui:remove>
     <h:head>
         <title>คำนวนสินเชื่อบ้านและที่อยู่อาศัย</title>
     </h:head>
     <h:body>
 		<h:form id="form">
 			<p:messages id="messages" />
-			<p:panel rendered="#{!homeloan.show}">
-				<p:inputText id="rate" />
+			<p:panel>
+				<p:inputText id="total" value="#{homeloanBean.total}" style="margin-right: 24px;" />
+				<p:watermark for="total" value="ยอดเงินกู้" />
+				<p:inputText id="paid" value="#{homeloanBean.paid}" style="margin-right: 24px;"  />
+				<p:watermark for="paid" value="จ่ายต่อเดือน" />
+				<p:commandButton id="submit" value="คำนวน" action="#{homeloanBean.genReport}" ajax="false"/>
 			</p:panel>
 			<br />
-			<p:lineChart id="loangraph" value="#{homeloan.homeloanModel}" rendered="#{homeloan.show}"
-						 style="height:960px; width: 100%" zoom="true" widgetVar="chart" animate="true"
-						 title="จ่ายคงที่เดือนละ : #{homeloan.paid} บาท" 
-						 minX="1" maxX="#{homeloan.paidmonth}" minY="1" maxY="#{homeloan.total}" />
-
+			<p:outputPanel rendered="#{homeloanBean.show}" >
+				<p:lineChart id="loangraph" value="#{homeloanBean.homeloanModel}"
+						 style="height:960px; width: 100%" zoom="true" legendPosition="e" widgetVar="chart" animate="true"
+						 title="จ่ายคงที่เดือนละ : #{homeloanBean.paid} บาท"
+						 minX="1" maxX="#{homeloanBean.paidmonth}" minY="1" maxY="#{homeloanBean.total}" />
+			</p:outputPanel>
 		</h:form>
 		<hr />
 		คำนวนสินเชื่อบ้านและที่อยู่อาศัย คำนวณหาอัตราผ่อนชำระต่อเดือน และรายได้ขั้นต่ำ คำนวนหาวงเงิน ที่สามารถกู้ได้ หาระยะเวลากู้และวงเงินกู้

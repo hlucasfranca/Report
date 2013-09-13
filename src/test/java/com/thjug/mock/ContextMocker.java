@@ -10,6 +10,13 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+/**
+ *
+ * http://illegalargumentexception.blogspot.co.uk/2011/12/jsf-mocking-facescontext-for-unit-tests.html
+ * 
+ * @author  MCDOWELL
+ * @since	TUESDAY, DECEMBER 27, 2011
+ */
 public abstract class ContextMocker extends FacesContext {
 
 	private ContextMocker() {}

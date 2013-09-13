@@ -30,12 +30,11 @@ public final class HomeloanFacade {
 
 	private static final Logger LOG = LoggerFactory.getLogger(HomeloanFacade.class);
 
-	private static final DecimalFormat monthFormat = new DecimalFormat("00");
+	private static final DecimalFormat MONTHFORMAT = new DecimalFormat("00");
 	private static final BigDecimal PERCENT = new BigDecimal("100");
 
 	public List<Homeloan> calc(final Date startdate, final BigDecimal total, final BigDecimal paid,
-			final List<InterestRate> rateList)
-			throws IllegalArgumentException {
+			final List<InterestRate> rateList) {
 		final List<Homeloan> result = new LinkedList<>();
 
 		BigDecimal summary = total.abs();
@@ -50,7 +49,7 @@ public final class HomeloanFacade {
 
 			if (interest.doubleValue() >= paid.doubleValue()) {
 				throw new IllegalArgumentException(
-						 "You paid less than your interest. \n Please increse your amout.");
+						 "You paid less than your interest. Please increse your amout.");
 			}
 
 			summary = summary.add(interest);
@@ -74,7 +73,7 @@ public final class HomeloanFacade {
 			calendar.add(Calendar.MONTH, 1);
 
 			LOG.debug("#{} {}{}	{}	{}	{}	{}",
-						loan.getCount(), loan.getYear(), monthFormat.format(loan.getMonth()),
+						loan.getCount(), loan.getYear(), MONTHFORMAT.format(loan.getMonth()),
 						loan.getTotalbeforepaid(), loan.getInterest(), loan.getPaid(), loan.getTotalafterpaid());
 		} while(summary.doubleValue() > 0);
 
@@ -95,15 +94,14 @@ public final class HomeloanFacade {
 				.divide(PERCENT).divide(numberofdayinyear, 2, BigDecimal.ROUND_HALF_UP);
 	}
 
-	public BigDecimal getRate(final int count, final List<InterestRate> rateList)
-		throws IllegalArgumentException {
+	public BigDecimal getRate(final int count, final List<InterestRate> rateList) {
 		for (final InterestRate interestRate : rateList) {
 			if (inLength(count, interestRate.getMonth())) {
 				return interestRate.getRate();
 			}
 		}
 
-		throw new IllegalArgumentException("Interest not cover.");
+		throw new IllegalArgumentException("Interest rate not cover.");
 	}
 
 	public boolean inLength(final int count, final String month) {

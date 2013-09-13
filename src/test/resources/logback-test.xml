@@ -6,7 +6,7 @@
 		</layout>
 	</appender>
 
-	<logger name="com.thjug" level="INFO"/>
+	<logger name="com.thjug" level="DEBUG"/>
 
 	<root level="ALL">
 		<appender-ref ref="STDOUT" />
