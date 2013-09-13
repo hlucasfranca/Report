@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * @author @nuboat
  */
 @ViewScoped
-@ManagedBean
+@ManagedBean(name = "homeloan")
 public final class HomeloanBean extends AbstractBean {
 
 	private static final Logger LOG = LoggerFactory.getLogger(HomeloanBean.class);

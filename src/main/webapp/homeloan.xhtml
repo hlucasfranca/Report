@@ -27,18 +27,18 @@
 		<h:form id="form">
 			<p:messages id="messages" />
 			<p:panel>
-				<p:inputText id="total" value="#{homeloanBean.total}" style="margin-right: 24px;" />
+				<p:inputText id="total" value="#{homeloan.total}" style="margin-right: 24px;" />
 				<p:watermark for="total" value="ยอดเงินกู้" />
-				<p:inputText id="paid" value="#{homeloanBean.paid}" style="margin-right: 24px;"  />
+				<p:inputText id="paid" value="#{homeloan.paid}" style="margin-right: 24px;"  />
 				<p:watermark for="paid" value="จ่ายต่อเดือน" />
-				<p:commandButton id="submit" value="คำนวน" action="#{homeloanBean.genReport}" ajax="false"/>
+				<p:commandButton id="submit" value="คำนวน" action="#{homeloan.genReport}" ajax="false"/>
 			</p:panel>
 			<br />
-			<p:outputPanel rendered="#{homeloanBean.show}" >
-				<p:lineChart id="loangraph" value="#{homeloanBean.homeloanModel}"
+			<p:outputPanel rendered="#{homeloan.show}" >
+				<p:lineChart id="loangraph" value="#{homeloan.homeloanModel}"
 						 style="height:960px; width: 100%" zoom="true" legendPosition="e" widgetVar="chart" animate="true"
-						 title="จ่ายคงที่เดือนละ : #{homeloanBean.paid} บาท"
-						 minX="1" maxX="#{homeloanBean.paidmonth}" minY="1" maxY="#{homeloanBean.total}" />
+						 title="จ่ายคงที่เดือนละ : #{homeloan.paid} บาท"
+						 minX="1" maxX="#{homeloan.paidmonth}" minY="1" maxY="#{homeloan.total}" />
 			</p:outputPanel>
 		</h:form>
 		<hr />
