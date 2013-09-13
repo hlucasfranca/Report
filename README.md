@@ -1,5 +1,21 @@
-JSF
+JSF - TDD Tutorial from Code ^ ^
 ===================
+It means no any description just look on Code and run
+
+Requirement
+-----
+1. Maven
+2. Java SDK 7u25
+3. Internet
+4. Coffee or Beer
+
+
+First Example
+-----
+JSF2 + Primefaces3.5 + TestNG + Mockito
+
+1. Home loans calculation. (100% Code Coverage)
+
 
 Fix build error
 -----
