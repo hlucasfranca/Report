@@ -187,14 +187,6 @@ public final class HomeloanBean extends AbstractBean {
 		return homeloanModel;
 	}
 
-	public Date getStartdate() {
-		return startdate;
-	}
-
-	public void setStartdate(final Date startdate) {
-		this.startdate = startdate;
-	}
-
 	public BigDecimal getTotal() {
 		return total;
 	}

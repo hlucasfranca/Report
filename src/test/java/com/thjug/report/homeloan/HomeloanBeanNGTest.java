@@ -14,7 +14,6 @@ package com.thjug.report.homeloan;
 
 import com.thjug.mock.ContextMocker;
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import javax.faces.context.FacesContext;
@@ -33,15 +32,11 @@ public class HomeloanBeanNGTest {
 	@Test
 	public void testGetter() {
 		final HomeloanBean instance = new HomeloanBean();
-		instance.setStartdate(new Date());
 		instance.setTotal(new BigDecimal("2400000"));
 		instance.setPaid(new BigDecimal("16000"));
 
 		final CartesianChartModel result1 = instance.getHomeloanModel();
 		assertNotNull(result1);
-
-		final Date result2 = instance.getStartdate();
-		assertNotNull(result2);
 
 		final BigDecimal result3 = instance.getTotal();
 		assertNotNull(result3);
@@ -59,7 +54,6 @@ public class HomeloanBeanNGTest {
 	@Test
 	public void testGenReport() {
 		final HomeloanBean instance = new HomeloanBean();
-		instance.setStartdate(new Date());
 		instance.setTotal(new BigDecimal("2400000"));
 		instance.setPaid(new BigDecimal("16000"));
 		instance.genOomsinPlan1();
@@ -87,7 +81,6 @@ public class HomeloanBeanNGTest {
 		FacesContext context = ContextMocker.mockFacesContext();
 		
 		final HomeloanBean instance = new HomeloanBean();
-		instance.setStartdate(new Date());
 		instance.setTotal(new BigDecimal("2400000"));
 		instance.setPaid(new BigDecimal("6000"));
 
