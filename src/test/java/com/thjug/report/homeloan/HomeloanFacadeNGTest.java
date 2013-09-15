@@ -23,7 +23,7 @@ import org.testng.annotations.Test;
  *
  * @author @nuboat
  */
-public class HomeloanFacadeNGTest {
+public final class HomeloanFacadeNGTest {
 
 	final HomeloanFacade instance = new HomeloanFacade();
 	final List<InterestRate> rateList = new LinkedList<>();

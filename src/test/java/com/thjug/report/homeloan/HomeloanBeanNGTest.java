@@ -13,6 +13,7 @@
 package com.thjug.report.homeloan;
 
 import com.thjug.mock.ContextMocker;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +28,7 @@ import org.testng.annotations.Test;
  *
  * @author @nuboat
  */
-public class HomeloanBeanNGTest {
+public final class HomeloanBeanNGTest {
 
 	@Test
 	public void testGetter() {
@@ -52,12 +53,10 @@ public class HomeloanBeanNGTest {
 	}
 
 	@Test
-	public void testGenReport() {
+	public void testGenReport() throws IOException {
 		final HomeloanBean instance = new HomeloanBean();
 		instance.setTotal(new BigDecimal("2400000"));
 		instance.setPaid(new BigDecimal("16000"));
-		instance.genOomsinPlan1();
-
 		instance.genReport();
 
 		final boolean show = instance.isShow();
@@ -79,7 +78,7 @@ public class HomeloanBeanNGTest {
 	@Test
 	public void testCalculateError() {
 		FacesContext context = ContextMocker.mockFacesContext();
-		
+
 		final HomeloanBean instance = new HomeloanBean();
 		instance.setTotal(new BigDecimal("2400000"));
 		instance.setPaid(new BigDecimal("6000"));

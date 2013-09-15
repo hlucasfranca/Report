@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
  *
  * @author @nuboat
  */
-public class InterestRateNGTest {
+public final class InterestRateNGTest {
 
 	final static ObjectMapper mapper = new ObjectMapper();
 
@@ -37,7 +37,7 @@ public class InterestRateNGTest {
 		rateList.add(new InterestRate(" 1 - 12", new BigDecimal("4")));
 		rateList.add(new InterestRate("13 - 24", new BigDecimal("4")));
 	}
-	
+
 	@Test
 	public void testBeanToJson() throws IOException {
 		final String json = mapper.writeValueAsString(rate);
@@ -52,13 +52,13 @@ public class InterestRateNGTest {
 	}
 
 	@Test
-	public void testBeanToJson2() throws IOException {
+	public void testListBeanToJson() throws IOException {
 		final String json = mapper.writeValueAsString(rateList);
 		assertEquals(json, "[{\"month\":\" 1 - 12\",\"rate\":4},{\"month\":\"13 - 24\",\"rate\":4}]");
 	}
 
 	@Test
-	public void testJsonToBean2() throws IOException {
+	public void testJsonToListBean() throws IOException {
 		final String json = "[{\"month\":\" 1 - 12\",\"rate\":4},{\"month\":\"13 - 24\",\"rate\":4}]";
 		final List<InterestRate> instance = mapper.readValue(json, new TypeReference<List<InterestRate>>(){});
 		assertEquals(instance.get(0).getMonth(), " 1 - 12");

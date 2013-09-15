@@ -12,6 +12,7 @@
  */
 package com.thjug.report.homeloan;
 
+import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 
@@ -19,19 +20,13 @@ import org.testng.annotations.Test;
  *
  * @author @nuboat
  */
-public final class AbstractBeanNGTest {
+public final class RateFactoryNGTest {
 
 	@Test
-	public void testMesssages() {
-		final AbstractBean instance = new AbstractBeanImpl();
-
-		instance.addMessage("NB");
-		assertEquals(instance.getMesssages().size(), 1);
-
-		instance.clear();
-		assertEquals(instance.getMesssages().size(), 0);
+	public void testGetRate() throws Exception {
+		final String bankname = "Oomsin";
+		final List<InterestRate> result = RateFactory.getRate(bankname);
+		assertNotNull(result);
 	}
-
-	public class AbstractBeanImpl extends AbstractBean { }
 
 }
