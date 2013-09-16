@@ -29,9 +29,4 @@ public final class RateFactoryNGTest {
 		assertNotNull(result);
 	}
 
-	@Test
-	public void testGetInstance() throws Exception {
-		assertNotNull(RateFactory.getInstance());
-	}
-
 }

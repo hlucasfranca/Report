@@ -27,13 +27,7 @@ final class RateFactory {
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 	private static final ResourceBundle RB = ResourceBundle.getBundle("interests");
 
-	private static final RateFactory OBJ = new RateFactory();
-
 	private RateFactory() { }
-
-	public static RateFactory getInstance() {
-		return OBJ;
-	}
 
 	public static List<InterestRate> getRate(final String bankname)
 		throws IOException {
