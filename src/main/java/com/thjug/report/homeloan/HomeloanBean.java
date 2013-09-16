@@ -63,6 +63,8 @@ public final class HomeloanBean extends AbstractBean {
 		homeloanModel.addSeries(calculate("SCBT", RateFactory.getRate("SCBT")));
 		homeloanModel.addSeries(calculate("Oomsin", RateFactory.getRate("Oomsin")));
 		homeloanModel.addSeries(calculate("UOB", RateFactory.getRate("UOB")));
+		homeloanModel.addSeries(calculate("Krungsri", RateFactory.getRate("Krungsri")));
+		homeloanModel.addSeries(calculate("BBL", RateFactory.getRate("BBL")));
 		return null;
 	}
 
