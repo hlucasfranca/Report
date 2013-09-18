@@ -41,9 +41,7 @@ public final class HomeloanBean extends AbstractBean {
 	private BigDecimal paid;
 	private int paidmonth = 0;
 	private boolean show;
-
 	private CartesianChartModel homeloanModel;
-
 	private static final HomeloanFacade FACADE = new HomeloanFacade();
 
 	public HomeloanBean() {
@@ -70,10 +68,10 @@ public final class HomeloanBean extends AbstractBean {
 
 	public LineChartSeries calculate(final String bank, final List<InterestRate> rateList) {
 		try {
-			final List<Homeloan> result =  FACADE.calc(startdate, total, paid, rateList);
-			final double totally = paid.multiply(new BigDecimal(result.size()-1))
-					.add(result.get(result.size()-1).getPaid()).doubleValue();
-			final LineChartSeries amountLine = new LineChartSeries(bank +" : Total " + totally + " baht");
+			final List<Homeloan> result = FACADE.calc(startdate, total, paid, rateList);
+			final double totally = paid.multiply(new BigDecimal(result.size() - 1))
+					.add(result.get(result.size() - 1).getPaid()).doubleValue();
+			final LineChartSeries amountLine = new LineChartSeries(bank + " : Total " + totally + " baht");
 			for (final Homeloan h : result) {
 				amountLine.set(h.getCount(), h.getTotalafterpaid().doubleValue());
 			}
@@ -82,12 +80,12 @@ public final class HomeloanBean extends AbstractBean {
 
 			show = true;
 			return amountLine;
-		} catch(final IllegalArgumentException e) {
+		} catch (final IllegalArgumentException e) {
 			LOG.info(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, bank,  "Cannot Calculate"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, bank, "Cannot Calculate"));
 		}
 
-		return new LineChartSeries(bank +" : Cannot Calculate");
+		return new LineChartSeries(bank + " : Cannot Calculate");
 	}
 
 	public CartesianChartModel getHomeloanModel() {

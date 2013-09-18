@@ -23,16 +23,16 @@ public abstract class ContextMocker extends FacesContext {
 
 	private static final Release RELEASE = new Release();
 
-	private static class Release implements Answer<Void> {
+	private static final class Release implements Answer<Void> {
 		@Override
-		public Void answer(InvocationOnMock invocation) throws Throwable {
+		public Void answer(final InvocationOnMock invocation) throws Throwable {
 			setCurrentInstance(null);
 			return null;
 		}
 	}
 
 	public static FacesContext mockFacesContext() {
-		FacesContext context = Mockito.mock(FacesContext.class);
+		final FacesContext context = Mockito.mock(FacesContext.class);
 		setCurrentInstance(context);
 		Mockito.doAnswer(RELEASE)
 				.when(context)

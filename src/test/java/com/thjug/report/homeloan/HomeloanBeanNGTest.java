@@ -13,15 +13,19 @@
 package com.thjug.report.homeloan;
 
 import com.thjug.mock.ContextMocker;
+import com.thjug.mock.MockFacesMessage;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.mockito.InOrder;
 
 import org.primefaces.model.chart.CartesianChartModel;
 
 import static org.testng.Assert.*;
+import static org.mockito.Mockito.*;
 import org.testng.annotations.Test;
 
 /**
@@ -77,7 +81,7 @@ public final class HomeloanBeanNGTest {
 
 	@Test
 	public void testCalculateError() {
-		FacesContext context = ContextMocker.mockFacesContext();
+		final FacesContext context = ContextMocker.mockFacesContext();
 
 		final HomeloanBean instance = new HomeloanBean();
 		instance.setTotal(new BigDecimal("2400000"));
@@ -87,6 +91,10 @@ public final class HomeloanBeanNGTest {
 		failList.add(new InterestRate("1", new BigDecimal("5")));
 
 		instance.calculate("Test", failList);
+
+		final InOrder inOrder = inOrder(context);
+
+		inOrder.verify(context).addMessage(null, new MockFacesMessage(FacesMessage.SEVERITY_WARN, "Test", "Cannot Calculate"));
 
 		context.release();
 	}
