@@ -12,6 +12,9 @@
  */
 package com.thjug.report.homeloan;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
@@ -23,10 +26,19 @@ import org.testng.annotations.Test;
 public final class RateFactoryNGTest {
 
 	@Test
+	public void testPrivateConstructor()
+		throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+
+		Constructor constructor = RateFactory.class.getDeclaredConstructor();
+		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
+		constructor.setAccessible(true);
+		constructor.newInstance();
+	}
+
+	@Test
 	public void testGetRate() throws Exception {
 		final String bankname = "Oomsin";
 		final List<InterestRate> result = RateFactory.getRate(bankname);
 		assertNotNull(result);
 	}
-
 }

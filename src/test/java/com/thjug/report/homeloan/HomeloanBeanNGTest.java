@@ -20,12 +20,11 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import org.mockito.InOrder;
 
 import org.primefaces.model.chart.CartesianChartModel;
 
 import static org.testng.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
 import org.testng.annotations.Test;
 
 /**
@@ -92,9 +91,7 @@ public final class HomeloanBeanNGTest {
 
 		instance.calculate("Test", failList);
 
-		final InOrder inOrder = inOrder(context);
-
-		inOrder.verify(context).addMessage(null, new MockFacesMessage(FacesMessage.SEVERITY_WARN, "Test", "Cannot Calculate"));
+		verify(context).addMessage(null, new MockFacesMessage(FacesMessage.SEVERITY_WARN, "Test", "Cannot Calculate"));
 
 		context.release();
 	}
